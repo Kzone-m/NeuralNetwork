@@ -1,7 +1,7 @@
 import numpy
 import tensorflow as tf
 
-#load data from npz file
+# load data from npz file
 npz_xd = numpy.load("data.npz")
 print('type(npz_xd)' + str(type(npz_xd)))
 print('type(npz_xd["x"])=' + str(type(npz_xd["x"])))
@@ -12,11 +12,11 @@ print('npz_xd["x"][0].shape=' + str(npz_xd["x"][0].shape))
 print('npz_xd["x"][0][0]=' + str(npz_xd["x"][0][0]))
 print('npz_xd["d"][0]=' + str(npz_xd["d"][0]))
 
-#make input data, target data
+# make input data, target data
 x = npz_xd["x"]
 d = npz_xd["d"]
 
-#change target data from [N, 1] to [N, 10]
+# change target data from [N, 1] to [N, 10]
 list_d = []
 for data in d:
     if data == 0:
@@ -48,7 +48,7 @@ x_test = x[5000:6000]
 d_train = d_mod[0:5000]
 d_test = d_mod[5000:6000]
 
-#computation graph
+# computation graph
 x_ = tf.placeholder(tf.float32, [None, 784])
 x_reshape = tf.reshape(x_, [-1, 28, 28, 1])
 d_ = tf.placeholder(tf.float32, [None, 10])
@@ -78,7 +78,7 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
 
-#make minibatch
+# make minibatch
 def make_minibatch(per_list, x_data, d_data):
     x_data_mini = x_data[per_list]
     d_data_mini = d_data[per_list]
